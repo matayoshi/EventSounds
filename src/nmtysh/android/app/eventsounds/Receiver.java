@@ -11,16 +11,6 @@ import android.net.Uri;
 public class Receiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// // MediaPlayer を使うなら必要(Ringtone は自動判断)
-		// if (!EventSoundsPreference.isAllwaysPlay(context)) {
-		// // マナーモードを考慮する
-		// AudioManager am = (AudioManager) context
-		// .getSystemService(Context.AUDIO_SERVICE);
-		// if (am.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
-		// return;
-		// }
-		// }
-
 		String action = intent.getAction();
 		String uri = null;
 		if (EventSoundsPreference.isUSBConnected(context)
@@ -63,27 +53,13 @@ public class Receiver extends BroadcastReceiver {
 			EventSoundsPreference.runService(context);
 		}
 		if (uri != null && uri.length() > 0) {
-			// MediaPlayer mp = MediaPlayer.create(context, Uri.parse(uri));
 			Ringtone ringtone = RingtoneManager.getRingtone(context,
 					Uri.parse(uri));
 			if (ringtone != null) {
 				ringtone.setStreamType(AudioManager.STREAM_NOTIFICATION);
 				ringtone.play();
 			}
-			// if (mp != null) {
-			// mp.setOnCompletionListener(listener);
-			// mp.start();
-			// } else {
-			// Toast.makeText(context, R.string.failed_load_sound,
-			// Toast.LENGTH_SHORT).show();
-			// }
 		}
 	}
-	// private OnCompletionListener listener = new OnCompletionListener() {
-	// @Override
-	// public void onCompletion(MediaPlayer mp) { // リソースの解放
-	// mp.release();
-	// }
-	// };
 }
 // EOF

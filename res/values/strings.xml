@@ -2,11 +2,7 @@
 <resources>
     <string name="app_name">EventSounds</string>
     <string name="failed_load_sound">効果音の読み込みに失敗しました</string>
-<!-- 
-    <string name="allways_play">常に再生</string>
-    <string name="allways_play_summary_on">マナーモード中でも再生します</string>
-    <string name="allways_play_summary_off">マナーモード中は再生しません</string>
- -->
+
     <string name="select_ringtone">効果音の選択</string>
     <string name="default_ringtone">サイレント</string>
 

@@ -15,12 +15,17 @@ import android.preference.RingtonePreference;
 public class EventSoundsPreference extends PreferenceActivity {
 	private boolean isScreenOn = false;
 	private boolean isScreenOff = false;
+	private boolean isUserPresent = false;
+	private Context context = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preference);
+
+		// Context の取得
+		context = getApplicationContext();
 
 		// イベントハンドラの登録
 		int[] keys = { R.string.key_usb_connected_ringtone,
@@ -38,17 +43,23 @@ public class EventSoundsPreference extends PreferenceActivity {
 			key = getString(keys[i]);
 			ringtone = (RingtonePreference) findPreference(key);
 			ringtone.setOnPreferenceChangeListener(ringtoneListener);
-			ringtone.setSummary(getRingtoneTitle(getRingtone(this, key)));
+			ringtone.setSummary(getRingtoneTitle(getRingtone(context, key)));
 		}
-		keys = new int[] { R.string.key_screen_on, R.string.key_screen_off };
+		keys = new int[] { R.string.key_user_present, R.string.key_screen_on,
+				R.string.key_screen_off };
 		CheckBoxPreference checkbox;
 		for (int i = 0; i < keys.length; i++) {
 			key = getString(keys[i]);
 			checkbox = (CheckBoxPreference) findPreference(key);
 			checkbox.setOnPreferenceChangeListener(checkboxListener);
 		}
+		// 現在の設定状況を取得
+		isUserPresent = isUserPresent(context);
+		isScreenOn = isScreenOn(context);
+		isScreenOff = isScreenOff(context);
+
 		// サービスの起動
-		runService(getApplicationContext());
+		runService(context);
 	}
 
 	// 効果音の変更を捕捉
@@ -65,14 +76,15 @@ public class EventSoundsPreference extends PreferenceActivity {
 	private OnPreferenceChangeListener checkboxListener = new OnPreferenceChangeListener() {
 		@Override
 		public boolean onPreferenceChange(Preference preference, Object newValue) {
-			Context context = getApplicationContext();
 			String key = preference.getKey();
-			if (key.equals(context.getString(R.string.key_screen_on))) {
+			if (key.equals(context.getString(R.string.key_user_present))) {
+				isUserPresent = (Boolean) newValue;
+			} else if (key.equals(context.getString(R.string.key_screen_on))) {
 				isScreenOn = (Boolean) newValue;
 			} else if (key.equals(context.getString(R.string.key_screen_off))) {
 				isScreenOff = (Boolean) newValue;
 			}
-			runService(context, isScreenOn, isScreenOff);
+			runService(context, isUserPresent, isScreenOn, isScreenOff);
 			return true;
 		}
 	};
@@ -138,12 +150,6 @@ public class EventSoundsPreference extends PreferenceActivity {
 				context.getString(R.string.key_shutdown_ringtone));
 	}
 
-	// static boolean isAllwaysPlay(Context context) {
-	// return PreferenceManager
-	// .getDefaultSharedPreferences(context)
-	// .getBoolean(context.getString(R.string.key_allways_play), false);
-	// }
-
 	static boolean isUSBConnected(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 				.getBoolean(context.getString(R.string.key_usb_connected),
@@ -196,16 +202,17 @@ public class EventSoundsPreference extends PreferenceActivity {
 	}
 
 	static void runService(Context context) {
-		if (isScreenOn(context) || isScreenOff(context)) {
+		if (isUserPresent(context) || isScreenOn(context)
+				|| isScreenOff(context)) {
 			startService(context);
 		} else {
 			stopService(context);
 		}
 	}
 
-	static void runService(Context context, boolean isScreenOn,
-			boolean isScreenOff) {
-		if (isScreenOn || isScreenOff) {
+	static void runService(Context context, boolean isUserPresent,
+			boolean isScreenOn, boolean isScreenOff) {
+		if (isUserPresent || isScreenOn || isScreenOff) {
 			startService(context);
 		} else {
 			stopService(context);
