@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EventSounds</string>
+    <string name="failed_load_sound">効果音の読み込みに失敗しました</string>
+<!-- 
+    <string name="allways_play">常に再生</string>
+    <string name="allways_play_summary_on">マナーモード中でも再生します</string>
+    <string name="allways_play_summary_off">マナーモード中は再生しません</string>
+ -->
+    <string name="select_ringtone">効果音の選択</string>
+    <string name="default_ringtone">サイレント</string>
+
+    <string name="usb_connected">USB接続時に音を鳴らす</string>
+    <string name="usb_disconnected">USB切断時に音を鳴らす</string>
+    <string name="user_present">ロック解除時に音を鳴らす</string>
+    <string name="screen_on">画面ON時に音を鳴らす</string>
+    <string name="screen_off">画面OFF時に音を鳴らす</string>
+    <string name="power_connected">電源接続時に音を鳴らす</string>
+    <string name="power_disconnected">電源切断時に音を鳴らす</string>
+    <string name="boot_completed">起動時に音を鳴らす</string>
+    <string name="shutdown">終了時に音を鳴らす</string>
+</resources>

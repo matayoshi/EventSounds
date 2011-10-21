@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- 
+    <string name="key_allways_play">allways_play</string>
+ -->
+    <string name="key_usb_connected">usb_connected</string>
+    <string name="key_usb_connected_ringtone">usb_connected_ringtone</string>
+    <string name="key_usb_disconnected">usb_disconnected</string>
+    <string name="key_usb_disconnected_ringtone">usb_disconnected_ringtone</string>
+    <string name="key_user_present">user_present</string>
+    <string name="key_user_present_ringtone">user_present_ringtone</string>
+    <string name="key_screen_on">screen_on</string>
+    <string name="key_screen_on_ringtone">screen_on_ringtone</string>
+    <string name="key_screen_off">screen_of</string>
+    <string name="key_screen_off_ringtone">screen_of_ringtone</string>
+    <string name="key_power_connected">power_connected</string>
+    <string name="key_power_connected_ringtone">power_connected_ringtone</string>
+    <string name="key_power_disconnected">power_disconnected</string>
+    <string name="key_power_disconnected_ringtone">power_disconnected_ringtone</string>
+    <string name="key_boot_completed">boot_completed</string>
+    <string name="key_boot_completed_ringtone">boot_completed_ringtone</string>
+    <string name="key_shutdown">shutdown</string>
+    <string name="key_shutdown_ringtone">shutdown_ringtone</string>
+</resources>
