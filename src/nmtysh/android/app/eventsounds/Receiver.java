@@ -34,10 +34,19 @@ import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.telephony.TelephonyManager;
 
 public class Receiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		// 端末の状態を取得
+		// 通話中であれば音を鳴らさない。
+		TelephonyManager tManager = (TelephonyManager) context
+				.getSystemService(Context.TELEPHONY_SERVICE);
+		if (tManager.getCallState() != TelephonyManager.CALL_STATE_IDLE) {
+			return;
+		}
+
 		String action = intent.getAction();
 		String uri = null;
 		if (EventSoundsPreference.isUSBConnected(context)
