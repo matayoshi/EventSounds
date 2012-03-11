@@ -82,11 +82,11 @@ public class Receiver extends BroadcastReceiver {
 			// シャットダウン
 			uri = EventSoundsPreference.getShutdownRingtone(context);
 		} else if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+			EventSoundsPreference.runService(context);
 			// 起動完了
 			if (EventSoundsPreference.isBootCompleted(context)) {
 				uri = EventSoundsPreference.getBootCompletedRingtone(context);
 			}
-			EventSoundsPreference.runService(context);
 		}
 		if (uri != null && uri.length() > 0) {
 			Ringtone ringtone = RingtoneManager.getRingtone(context,
